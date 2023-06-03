@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Module</title>
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <div id="messages"></div>
+    <div id="sendMsg">
+        <input type="text" id="msgTxt" placeholder="ENTER YOUR MSG....">
+        <input type="submit" id="msgBtn" value="send" onclick="module.sendMsg()">
+    </div>
+
+    <script>
+        module = {};
+    </script>
+
+    <script type="module">
+
+        module = {};
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+        import { getDatabase, set, ref, remove, onChildAdded, onChildRemoved } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+        //import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+        //import { getStorage, ref as imgref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-storage.js";
+    
+        const firebaseConfig = {
+        apiKey: "AIzaSyBJRTVdAqDLasP48M2nnrFwPfyDDWj-JG4",
+        authDomain: "login-97905.firebaseapp.com",
+        databaseURL: "https://login-97905-default-rtdb.firebaseio.com",
+        projectId: "login-97905",
+        storageBucket: "login-97905.appspot.com",
+        messagingSenderId: "1060119472412",
+        appId: "1:1060119472412:web:0aab8a471a6aa50b78b2d9"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        //const auth = getAuth(app);
+        const db = getDatabase(app);
+        //const storage = getStorage(app);
+
+        var msgTxt = document.getElementById('msgTxt');
+        var sender;
+        if(sessionStorage.getItem('sender')){
+            sender = sessionStorage.getItem('sender');
+        }else{
+            sender = prompt("Please Enter Your Name");
+            sessionStorage.setItem("sender",sender);
+        }
+
+        module.sendMsg = function sendMsg(){
+            var msg=msgTxt.value;
+            var timestamp=new Date().getTime();
+            set(ref(db,"messages/"+timestamp),{
+                msg : msg,
+                sender : sender
+            })
+        }
+
+        onChildAdded(ref(db,"messages"),(data) => {
+            console.log(data.val().sender +":"+ data.val().msg);
+            if(data.val().sender == sender){
+                messages.innerHTML += "<div style=justify-content:end class=outer id="+data.key+"><div id=inner class=me>you : "+data.val().msg+"<button id=dltMsg onclick=module.dltMsg("+data.key+")>Delete</button></div></div>";
+            }else{
+                messages.innerHTML += "<div class=outer id="+data.key+"><div id=inner class=notMe>"+data.val().sender+" : "+data.val().msg+"</div></div>";
+            }
+        
+        })
+
+        module.dltMsg = function dltMsg(key){
+            console.log(key);
+            remove(ref(db,"messages/"+key));
+        }
+
+        onChildRemoved(ref(db,"messages"),(data)=>{
+            console.log(data.key);
+            var msgBox = document.getElementById(data.key);
+            console.log(msgBox);
+            messages.removeChild(msgBox);
+        })
+
+    </script>
+</body>
+</html>

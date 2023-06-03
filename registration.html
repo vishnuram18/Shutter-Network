@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event Registration Form</title>
+  <style>
+    body {
+      font-family: "Source Sans Pro", sans-serif;
+      background: linear-gradient(135deg, #2980b9, #3498db);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .registration-form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+    .form-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .form-label {
+      display: block;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    .register-button {
+      background-color: #db2d8e;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .register-button:hover {
+      background-color: #c62081;
+    }
+    .success-message {
+      color: #333;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="registration-form">
+    <h2 class="form-title">Event Registration Form</h2>
+    <form id="registration-form">
+      <label class="form-label">Name:</label>
+      <input type="text" class="form-input" name="name" required>
+      <label class="form-label">Email:</label>
+      <input type="email" class="form-input" name="email" required>
+      <label class="form-label">Phone:</label>
+      <input type="tel" class="form-input" name="phone" required>
+      <button type="submit" class="register-button">Register Now</button>
+    </form>
+    <div id="success-message" class="success-message" style="display: none;">Thank you for registering!</div>
+
+    <script>
+      document.getElementById("registration-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        document.getElementById("success-message").style.display = "block";
+        document.getElementById("registration-form").reset();
+      });
+    </script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Shutter Network</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header-section" style="border: 1px solid black;background-color: black;">
+    <div class="header-content">
+        <h1 class="logo">Shutter Network</h1>
+        <p class="sub-line">the best royalty free images you can find here.</p>
+
+        <form>
+            <input type="text" autocomplete="off" name="search" class="search-box" placeholder="search image">
+            <button class="search-btn" type="submit">search</button>
+            
+        </form>
+       
+    </div>
+</header>
+<div style="position: absolute;top: 2px;right: 5px;">
+    <a href="Signin.html"><button class="login-submit">Login</button></a>
+</div>
+<!--gallery-->
+
+<section class="gallery">
+  <img onclick="got(src)" src="image/OIP.jfif" width="100%">
+  <img onclick="got(src)" src="image/wallpaperflare.com_wallpaper (1).jpg" width="100%">
+  <img onclick="got(src)" src="image/wallpaperflare.com_wallpaper (2).jpg" width="100%">
+  <img onclick="got(src)" src="image/wallpaperflare.com_wallpaper (3).jpg" width="100%">
+  <img onclick="got(src)" src="image/wallpaperflare.com_wallpaper (3).jpg" width="100%">
+  <img onclick="got(src)" src="image/wallpaperflare.com_wallpaper (4).jpg" width="100%">
+  <img onclick="got(src)" src="image/wallpaperflare.com_wallpaper (5).jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-artem-saranin-1496373.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-christian-heitz-842711.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-drift-shutterbug-2085998.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-francesco-ungaro-1525041.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-francesco-ungaro-1526713.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-irina-iriser-1379636.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-maxime-francis-2246476.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-johannes-plenio-1435075.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-pixabay-36717.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-maxime-francis-2246476.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-rajesh-tp-1624487.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-tim-douglas-6210876.jpg" width="100%">
+  <img onclick="got(src)" src="image/pexels-william-choquette-2641886.jpg" width="100%">
+  <img onclick="got(src)" src="image/wallpaperflare.com_wallpaper.jpg" width="100%">
+
+  <div class="popup">
+    <div class="popup-content" style="display: flex;">
+        <img src="image/close1.jfif" class="close" alt="close" width="40px">
+        <div class="imageUpload">
+            <img for="inp" src="image/profile.jfif" id="imageUp" width="100%" height="100%"><br>
+            <button class="search-btn" onclick="download()">Download</button>
+        </div>
+    </div>
+</div>
+
+
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+<script>
+    var src1;
+    var rl;
+    console.log(rl);
+    function download(){
+        axios({
+            url: '/image/pexels-francesco-ungaro-1526713.jpg',
+            method: 'GET',
+            responseType:'blob'
+        })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+
+            const link = document.createElement('a');
+            link.href = link
+            link.setAttribute('download','image.jpg')
+
+            document.body.appendChild(link);
+            link.click();
+        })
+    }
+        
+    
+        document.querySelector(".close").addEventListener("click",function(){
+            document.querySelector(".popup").style.display="none";
+        })
+
+    function got(src1){
+        console.log(src1);
+        
+        document.querySelector(".popup").style.display="flex";
+        document.getElementById("imageUp").src = src1;
+        rl=document.getElementById("imgUp").src;
+        //downloadImage(src1);
+        //file =document.getElementById("input-file").files[0];
+        var splits=src1.split('///');
+        //src1=splits[1];
+        console.log(src1);
+
+        //document.getElementById("download").href = src1;
+        //link.setAttribute("href",src1);
+        //console.log(document.getElementById("download").href);
+        //document.getElementById("download").href.download;
+        //src1.download;
+    }
+</script>
+    
+</body>
+</html>

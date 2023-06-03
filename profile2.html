@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Shutter Network - Profile</title>
+
+    <link rel="stylesheet" href="profile.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        localStorage.getItem("imgpath");
+    </script>
+</head>
+<body>
+    <div class="header_wrapper">
+        <header ></header>
+            <div class="cols_container">
+                <div class="left_col">
+                    <div class="img_container">
+                        <img src="image/pexels-maxime-francis-2246476.jpg" alt="Shutter"/>
+                        <span></span>
+                    </div>
+                    <h2>Admin</h2>
+                    <p>Pro Photographer</p>
+                    <p>admin@gmail.com</p>
+
+                    <ul class="about">
+                        <li><span id="followers">2</span>Followers</li>
+                        <li><span id="following">0</span>Following</li>
+                        <li><span id="impressions">7</span>Impressions</li>
+                    </ul>
+                    <div class="content">
+                        <p>Administrator at Shutter Network
+                            Professional Photographer
+                        </p>
+
+                        <ul>
+                            <li><i class="fab fa-twitter"></i></li>
+                            <li><i class="fab fa-instagram"></i></li>
+                            <li><i class="fab fa-facebook"></i></li>
+                            <li><i class="fab fa-pinterest"></i></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="right_col">
+                    <nav>
+                        <ul>
+                            <li><a href="">photos</a></li>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="event3.html">Events</a></li>
+                            <li><a href="chat.html">Message</a></li>
+                            <li><a id="upload">Upload</a></li>
+                        </ul><br>
+                        
+                    
+                    <div class="popup">
+                        <div class="popup-content">
+                            <img src="image/close1.jfif" class="close" alt="close" width="40px">
+                            <div class="imageUpload">
+                                <input type="file" id="inp" class="choose" onchange="getImageData(event)" multiple/>
+                                <!--<button onclick="selectImage()" class="selectImage">Select Images</button>-->
+                                <button class="upload1" onclick="upload1()">Upload</button>
+                                <img for="inp" src="image/profile.jfif" id="imageUp" width="100%" style="float: right;height: auto;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="popup1">
+                        <div class="popup-content" style="display: flex;">
+                            <img src="image/close1.jfif" onclick="close1()" class="close" alt="close" width="40px">
+                            <div class="imageUpload">
+                                <img src="image/profile.jfif" id="imageUp1" width="100%" height="100%"><br>
+                                <button style="background: black;color: aliceblue;border-radius: 5px;" onclick="demo()">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                    <div class="photos">
+                        
+                        <img onclick="got(src)" src="image/pexels-guilherme-rossi-1755683.jpg" width="100%">
+                        <img onclick="got(src)" src="image/pexels-johannes-plenio-1435075.jpg" width="100%">
+                        <img onclick="got(src)" src="image/pexels-drift-shutterbug-2085998.jpg" width="100%">
+                        <img onclick="got(src)" src="image/pexels-francesco-ungaro-1525041.jpg" width="100%">
+                        <img onclick="got(src)" src="image/pexels-francesco-ungaro-1526713.jpg" width="100%">
+                        <img onclick="got(src)" src="image/pexels-johannes-plenio-1435075.jpg" width="100%">
+                        <img onclick="got(src)" src="" width="100%" id="i1" hidden>
+                        <img onclick="got(src)" src="" width="100%" id="i2" hidden>
+                        <img onclick="got(src)" src="" width="100%" id="i3" hidden>
+                        <img onclick="got(src)" src="" width="100%" id="i4" hidden>
+                        <img onclick="got(src)" src="" width="100%" id="i5" hidden>
+
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+    
+    <script>
+        var src1;
+        function demo(){
+        //src1.download;
+        const a=document.createElement('a');
+        const file = new Blob([src1],{
+            type:'image'
+        });
+        a.href = URL.createObjectURL(file);
+        a.download = src1
+        a.click();
+    }
+            document.getElementById("i1").style.display = "none";
+            document.getElementById("i2").style.display = "none";
+            document.getElementById("i3").style.display = "none";
+            document.getElementById("i4").style.display = "none";
+            document.getElementById("i5").style.display = "none";
+            var a=1;
+
+        document.getElementById("upload").addEventListener("click",function(){
+            document.querySelector(".popup").style.display="flex";
+        })
+        document.querySelector(".close").addEventListener("click",function(){
+            //document.querySelector(".popup1").style.display="none";
+            document.querySelector(".popup").style.display="none";
+        })
+        function close1(){
+            //document.querySelector(".popup").style.display="none";
+            document.querySelector(".popup1").style.display="none";
+        }
+
+        document.querySelector(".close").addEventListener("click",function(){
+            document.querySelector(".popup1").style.display="none";
+        })
+
+
+        let profilepic = document.getElementById("imageUp");
+        let inputfile = document.getElementById("inp");
+
+        inputfile.onchange = function(){
+        profilepic.src = URL.createObjectURL(inputfile.files[0]);
+        }
+
+        function upload1(){
+            let profilepic = document.getElementById("imageUp");
+            let inputfile = document.getElementById("inp");
+
+        
+        //profilepic.src = URL.createObjectURL(inputfile.files[0]);
+        
+        document.getElementById("i"+a).src = URL.createObjectURL(inputfile.files[0]);
+        document.getElementById("i"+a).style.display = "flex";
+        document.querySelector(".popup").style.display="none";
+        a=a+1;
+        document.getElementById("imageUp").src = "image/profile.jpg"
+        //localStorage.setItem("imgpath",URL.createObjectURL(inputfile.files[0]));
+
+
+    }
+
+    function got(src1){
+        //console.log(src1);
+        document.querySelector(".popup1").style.display="flex";
+        document.getElementById("imageUp1").src = src1;
+        //downloadImage(src1);
+        //file =document.getElementById("input-file").files[0];
+        var splits=src1.split('Mini/');
+        src1=splits[1];
+        //console.log(src1);
+
+        //document.getElementById("download").href = src1;
+        //link.setAttribute("href",src1);
+        //console.log(document.getElementById("download").href);
+        //document.getElementById("download").href.download;
+        //src1.download;
+    }
+    </script>
+</body>
+</html>
